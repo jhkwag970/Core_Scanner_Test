@@ -60,10 +60,11 @@ void nextToken(){
                 tokenString[0]='E';
                 tokenString[1]='O';
                 tokenString[2]='S';
+                tokenString[3]='\0';
             }
             break;
         } 
-        if(ch == ' ' || ch =='\n' || ch == '\t'){
+        if(ch == ' ' || ch =='\n' || ch == '\t' || ch == '\r'){
             if(first){
                 continue;
             }else{
@@ -126,6 +127,13 @@ void nextToken(){
                 tokenString[tokenSize]='\0';
                 fseek( fp, -1, SEEK_CUR);
             }
+            char next = fgetc(fp);
+            if(next == '='){
+                tokenString[tokenSize]=next;
+                tokenSize++;
+            }else{
+                fseek( fp, -1, SEEK_CUR);
+            }
             break;
         }else if(ch == ';'){
             if(tokenSize!=1){
@@ -177,23 +185,36 @@ void nextToken(){
             }
             break;
         }
+        
         int tmp = tokenSize-1;
-        if(numChecker){
-            if(!(tokenString[tmp]>=48 && tokenString[tmp]<=57)){
+        if(tokenSize != 1){
+            if((numChecker==tmp) &&!(tokenString[tmp]>=48 && tokenString[tmp]<=57)){
                 tokenSize--;
                 tokenString[tokenSize]='\0';
                 fseek( fp, -1, SEEK_CUR);
                 break;
             }
         }
+
         if((tokenString[tmp]>=48 && tokenString[tmp]<=57)){
-            numChecker=1;
+            numChecker++;
         }
 
-
-
-
     }
+    // if(!strcmp(tokenString, "int")){
+    //     printf("int pass\n");
+    // }else if(!strcmp(tokenString, "x")){
+    //     printf("x pass\n");
+    // }else if (!strcmp(tokenString, "y")){
+    //     printf("y pass\n");
+    // }else if (!strcmp(tokenString, "z")){
+    //     printf("z pass\n");
+    // }else if (!strcmp(tokenString, ",")){
+    //     printf(", pass\n");
+    // }else if (!strcmp(tokenString, ";")){
+    //     printf("; pass\n");
+    // }
+    
     printf("%s\n", tokenString);
     free(tokenString);
 
@@ -201,12 +222,27 @@ void nextToken(){
 
 int main(){
 
+    fp = fopen ("Correct/1.code", "r");
+    //fp = fopen ("Correct/2.code", "r");
     //fp = fopen ("Correct/3.code", "r");
-    fp = fopen ("test.code", "r");
+    //fp = fopen ("Correct/4.code", "r");
+    //fp = fopen ("Correct/5.code", "r");
+    //fp = fopen ("Correct/6.code", "r");
+    //fp = fopen ("Correct/7.code", "r");
+    //fp = fopen ("Correct/8.code", "r");
+    //fp = fopen ("Correct/9.code", "r");
+    //fp = fopen ("Correct/10.code", "r");
+    //fp = fopen ("Correct/11.code", "r");
+    //fp = fopen ("Correct/12.code", "r");
+    //fp = fopen ("Correct/13.code", "r");
+    //fp = fopen ("test.code", "r");
     int s;
-    for(s=0; s<50;s++){
+
+    
+    for(s=0; s<200;s++){
         nextToken();
     }
+
 
 
     char a = 'A';

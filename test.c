@@ -46,8 +46,9 @@ enum core {
 };
 static FILE* fp;
 static char* tokenString;
+static int token;
 
-void nextToken(){
+void tokenizer(){
     int first=1;
     int tokenSize=0;
     int numChecker=0;
@@ -201,24 +202,91 @@ void nextToken(){
         }
 
     }
-    // if(!strcmp(tokenString, "int")){
-    //     printf("int pass\n");
-    // }else if(!strcmp(tokenString, "x")){
-    //     printf("x pass\n");
-    // }else if (!strcmp(tokenString, "y")){
-    //     printf("y pass\n");
-    // }else if (!strcmp(tokenString, "z")){
-    //     printf("z pass\n");
-    // }else if (!strcmp(tokenString, ",")){
-    //     printf(", pass\n");
-    // }else if (!strcmp(tokenString, ";")){
-    //     printf("; pass\n");
-    // }
-    
     printf("%s\n", tokenString);
     free(tokenString);
+}
+
+void tokenToEnum(){
+    if(!strcmp(tokenString, "and")){
+        token=0;
+    }else if(!strcmp(tokenString, "begin")){
+        token=0;
+    }else if (!strcmp(tokenString, "do")){
+        token=0;
+    }else if (!strcmp(tokenString, "else")){
+        token=0;
+    }else if (!strcmp(tokenString, "end")){
+        token=0;
+    }else if (!strcmp(tokenString, "if")){
+        token=0;
+    }else if (!strcmp(tokenString, "in")){
+        token=0;
+    }else if (!strcmp(tokenString, ":=")){
+        token=0;
+    }else if (!strcmp(tokenString, "integer")){
+        token=0;
+    }else if (!strcmp(tokenString, "is")){
+        token=0;
+    }else if (!strcmp(tokenString, "new")){
+        token=0;
+    }else if (!strcmp(tokenString, "not")){
+        token=0;
+    }else if (!strcmp(tokenString, "or")){
+        token=0;
+    }else if (!strcmp(tokenString, "out")){
+        token=0;
+    }else if (!strcmp(tokenString, "procedure")){
+        token=0;
+    }else if (!strcmp(tokenString, "record")){
+        token=0;
+    }else if (!strcmp(tokenString, "then")){
+        token=0;
+    }else if (!strcmp(tokenString, "while")){
+        token=0;
+    }else if (!strcmp(tokenString, "+")){
+        token=0;
+    }else if (!strcmp(tokenString, "-")){
+        token=0;
+    }else if (!strcmp(tokenString, "*")){
+        token=0;
+    }else if (!strcmp(tokenString, "/")){
+        token=0;
+    }else if (!strcmp(tokenString, ":=")){
+        token=0;
+    }else if (!strcmp(tokenString, "=")){
+        token=0;
+    }else if (!strcmp(tokenString, "<")){
+        token=0;
+    }else if (!strcmp(tokenString, ":")){
+        token=0;
+    }else if (!strcmp(tokenString, ";")){
+        token=0;
+    }else if (!strcmp(tokenString, ".")){
+        token=0;
+    }else if (!strcmp(tokenString, ",")){
+        token=0;
+    }else if (!strcmp(tokenString, "(")){
+        token=0;
+    }else if (!strcmp(tokenString, ")")){
+        token=0;
+    }else if (!strcmp(tokenString, "[")){
+        token=0;
+    }else if (!strcmp(tokenString, "]")){
+        token=0;
+    }else{
+
+    }
 
 }
+
+//keyword check
+//symbol check
+//else {
+//  if (ASCII (not Symbol)) {ERROR}
+//  else if(Number) {Const}
+//  else if (EOS) {EOS}
+//  else {ID}    
+//}
 
 int main(){
 
@@ -239,11 +307,16 @@ int main(){
     int s;
 
     
-    for(s=0; s<200;s++){
-        nextToken();
-    }
+    // for(s=0; s<200;s++){
+    //     tokenizer();
+    // }
 
-
+    tokenString = calloc(20, sizeof(char));
+    // tokenString[0]='8';
+    // tokenString[1]='B';
+    // int tmp = atoi(tokenString);
+    // printf("%d\n",tmp);
+    // printf("%s\n", tokenString);
 
     char a = 'A';
     char z = 'Z';

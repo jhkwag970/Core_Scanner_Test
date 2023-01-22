@@ -305,7 +305,12 @@ void tokenToEnum(){
         if (errorChecker()){
             token=35;
         }else if(numberChecker()){
-            token=32;
+            int tokenNumber = atoi(tokenString);
+            if(tokenNumber >=0 && tokenNumber <= 1009){
+                token=32;
+            }else{
+                token =35;
+            }
         }else{
             token=33;
         }

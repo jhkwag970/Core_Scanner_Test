@@ -206,87 +206,122 @@ void tokenizer(){
     free(tokenString);
 }
 
+int errorChecker(){
+    int idx=0;
+    int error=0;
+    while(tokenString[idx] != '\0'){
+        char ch = tokenString[idx];
+        if((ch>=33 && ch <= 39) || (ch >=62 && ch<=64) || (ch==92) || (ch>= 94 && ch <= 96) || (ch >=123 && ch<=126) ){
+            error=1;
+            break;
+        }
+        idx++;
+    }
+    return error;
+}
+
+int numberChecker(){
+    int idx=0;
+    int isNumber=1;
+    while(tokenString[idx] != '\0'){
+        char ch = tokenString[idx];
+        if(!(ch>=48 && ch<=57)){
+            isNumber=0;
+            break;
+        }
+        idx++;
+    }
+    return isNumber;
+
+}
+
 void tokenToEnum(){
-    if(!strcmp(tokenString, "and")){
+    if(!strcmp(tokenString, "and")){ //keyword
         token=0;
     }else if(!strcmp(tokenString, "begin")){
-        token=0;
+        token=1;
     }else if (!strcmp(tokenString, "do")){
-        token=0;
+        token=2;
     }else if (!strcmp(tokenString, "else")){
-        token=0;
+        token=3;
     }else if (!strcmp(tokenString, "end")){
-        token=0;
+        token=4;
     }else if (!strcmp(tokenString, "if")){
-        token=0;
+        token=5;
     }else if (!strcmp(tokenString, "in")){
-        token=0;
-    }else if (!strcmp(tokenString, ":=")){
-        token=0;
+        token=6;
     }else if (!strcmp(tokenString, "integer")){
-        token=0;
+        token=7;
     }else if (!strcmp(tokenString, "is")){
-        token=0;
+        token=8;
     }else if (!strcmp(tokenString, "new")){
-        token=0;
+        token=9;
     }else if (!strcmp(tokenString, "not")){
-        token=0;
+        token=10;
     }else if (!strcmp(tokenString, "or")){
-        token=0;
+        token=11;
     }else if (!strcmp(tokenString, "out")){
-        token=0;
+        token=12;
     }else if (!strcmp(tokenString, "procedure")){
-        token=0;
+        token=13;
     }else if (!strcmp(tokenString, "record")){
-        token=0;
+        token=14;
     }else if (!strcmp(tokenString, "then")){
-        token=0;
+        token=15;
     }else if (!strcmp(tokenString, "while")){
-        token=0;
-    }else if (!strcmp(tokenString, "+")){
-        token=0;
+        token=16;
+    }else if (!strcmp(tokenString, "+")){//symbol
+        token=17;
     }else if (!strcmp(tokenString, "-")){
-        token=0;
+        token=18;
     }else if (!strcmp(tokenString, "*")){
-        token=0;
+        token=19;
     }else if (!strcmp(tokenString, "/")){
-        token=0;
+        token=20;
     }else if (!strcmp(tokenString, ":=")){
-        token=0;
+        token=21;
     }else if (!strcmp(tokenString, "=")){
-        token=0;
+        token=22;
     }else if (!strcmp(tokenString, "<")){
-        token=0;
+        token=23;
     }else if (!strcmp(tokenString, ":")){
-        token=0;
+        token=24;
     }else if (!strcmp(tokenString, ";")){
-        token=0;
+        token=25;
     }else if (!strcmp(tokenString, ".")){
-        token=0;
+        token=26;
     }else if (!strcmp(tokenString, ",")){
-        token=0;
+        token=27;
     }else if (!strcmp(tokenString, "(")){
-        token=0;
+        token=28;
     }else if (!strcmp(tokenString, ")")){
-        token=0;
+        token=29;
     }else if (!strcmp(tokenString, "[")){
-        token=0;
+        token=30;
     }else if (!strcmp(tokenString, "]")){
-        token=0;
+        token=31;
+    }else if (!strcmp(tokenString, "EOS")){//other
+        token=34;
     }else{
-
+        if (errorChecker()){
+            token=35;
+        }else if(numberChecker()){
+            token=32;
+        }else{
+            token=33;
+        }
     }
-
 }
 
 //keyword check
 //symbol check
 //else {
-//  if (ASCII (not Symbol)) {ERROR}
-//  else if(Number) {Const}
-//  else if (EOS) {EOS}
+//  if (ASCII (not Symbol)) {ERROR} (x)
+//  else if(Number) {Const} (x)
 //  else {ID}    
 //}
+
+
 
 int main(){
 
@@ -311,10 +346,14 @@ int main(){
     //     tokenizer();
     // }
 
+
+    //----------------------------
+
+    int tmp = 88;
     tokenString = calloc(20, sizeof(char));
-    // tokenString[0]='8';
-    // tokenString[1]='B';
-    // int tmp = atoi(tokenString);
+    tokenString[0]='1';
+    tokenString[1]='8';
+    printf("%d\n", numberChecker());
     // printf("%d\n",tmp);
     // printf("%s\n", tokenString);
 

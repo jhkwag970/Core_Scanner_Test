@@ -57,12 +57,6 @@ void tokenizer(){
         char ch = fgetc(fp);
 
         if(ch == EOF){
-            if(first){
-                tokenString[0]='E';
-                tokenString[1]='O';
-                tokenString[2]='S';
-                tokenString[3]='\0';
-            }
             break;
         } 
         if(ch == ' ' || ch =='\n' || ch == '\t' || ch == '\r'){
@@ -203,7 +197,7 @@ void tokenizer(){
 
     }
     printf("%s\n", tokenString);
-    free(tokenString);
+    //free(tokenString);
 }
 
 int errorChecker(){
@@ -300,7 +294,7 @@ void tokenToEnum(){
         token=30;
     }else if (!strcmp(tokenString, "]")){
         token=31;
-    }else if (!strcmp(tokenString, "EOS")){//other
+    }else if (tokenString[0] == '\0'){//other
         token=34;
     }else{
         if (errorChecker()){
@@ -325,7 +319,7 @@ void tokenToEnum(){
 
 int main(){
 
-    fp = fopen ("Correct/1.code", "r");
+    //fp = fopen ("Correct/1.code", "r");
     //fp = fopen ("Correct/2.code", "r");
     //fp = fopen ("Correct/3.code", "r");
     //fp = fopen ("Correct/4.code", "r");
@@ -336,24 +330,26 @@ int main(){
     //fp = fopen ("Correct/9.code", "r");
     //fp = fopen ("Correct/10.code", "r");
     //fp = fopen ("Correct/11.code", "r");
-    //fp = fopen ("Correct/12.code", "r");
+    fp = fopen ("Correct/12.code", "r");
     //fp = fopen ("Correct/13.code", "r");
     //fp = fopen ("test.code", "r");
     int s;
 
     
-    // for(s=0; s<200;s++){
-    //     tokenizer();
-    // }
+    for(s=0; s<200;s++){
+        tokenizer();
+        tokenToEnum();
+        printf("%d\n", token);
+    }
 
 
     //----------------------------
 
-    int tmp = 88;
-    tokenString = calloc(20, sizeof(char));
-    tokenString[0]='1';
-    tokenString[1]='8';
-    printf("%d\n", numberChecker());
+    // int tmp = 88;
+    // tokenString = calloc(20, sizeof(char));
+    // tokenString[0]='1';
+    // tokenString[1]='8';
+    // printf("%d\n", numberChecker());
     // printf("%d\n",tmp);
     // printf("%s\n", tokenString);
 

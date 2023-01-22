@@ -48,6 +48,13 @@ static FILE* fp;
 static char* tokenString;
 static int token;
 
+void symbolChecker(int tokenSize){
+    if(tokenSize!=0){    
+        tokenString[tokenSize]='\0';
+        fseek( fp, -1, SEEK_CUR);
+    }
+}
+
 void tokenizer(){
     int first=1;
     int tokenSize=0;
@@ -69,131 +76,129 @@ void tokenizer(){
         first=0;
 
         tokenString[tokenSize]=ch;
-        tokenSize++;
-        
-        //Switch and Case to check it is sysmbol
-        //If symbol than assign the symbol to the tokenString and break the while loop;
-        //If there are something in token break; mark?
-        if (ch == '+'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '-'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '*'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '/'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '='){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '<'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == ':'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            char next = fgetc(fp);
-            if(next == '='){
-                tokenString[tokenSize]=next;
-                tokenSize++;
-            }else{
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == ';'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '.'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == ','){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '('){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == ')'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == '['){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
-            }
-            break;
-        }else if(ch == ']'){
-            if(tokenSize!=1){
-                tokenSize--;
-                tokenString[tokenSize]='\0';
-                fseek( fp, -1, SEEK_CUR);
+
+        if ((ch>=40 && ch <=47) || (ch>=58 && ch <= 61)|| ch == 91 || ch == 93){
+            symbolChecker(tokenSize);
+            if(ch==58){
+                char next = fgetc(fp);
+                if(next == '='){
+                    tokenSize++;
+                    tokenString[tokenSize]=next;
+                }else{
+                    fseek( fp, -1, SEEK_CUR);
+                }
             }
             break;
         }
         
-        int tmp = tokenSize-1;
-        if(tokenSize != 1){
-            if((numChecker==tmp) &&!(tokenString[tmp]>=48 && tokenString[tmp]<=57)){
-                tokenSize--;
+        //Switch and Case to check it is sysmbol
+        //If symbol than assign the symbol to the tokenString and break the while loop;
+        //If there are something in token break; mark?
+        // if (ch == '+'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '-'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '*'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '/'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '='){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '<'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == ':'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     char next = fgetc(fp);
+        //     if(next == '='){
+        //         tokenSize++;
+        //         tokenString[tokenSize]=next;
+        //     }else{
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == ';'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '.'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == ','){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '('){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == ')'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == '['){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }else if(ch == ']'){
+        //     if(tokenSize!=0){
+        //         tokenString[tokenSize]='\0';
+        //         fseek( fp, -1, SEEK_CUR);
+        //     }
+        //     break;
+        // }
+        
+        if(tokenSize != 0){
+            if((numChecker==tokenSize) &&!(tokenString[tokenSize]>=48 && tokenString[tokenSize]<=57)){
                 tokenString[tokenSize]='\0';
                 fseek( fp, -1, SEEK_CUR);
                 break;
             }
         }
 
-        if((tokenString[tmp]>=48 && tokenString[tmp]<=57)){
+        if((tokenString[tokenSize]>=48 && tokenString[tokenSize]<=57)){
             numChecker++;
         }
+        tokenSize++;
 
     }
     printf("%s\n", tokenString);
@@ -328,9 +333,9 @@ int main(){
     //fp = fopen ("Correct/7.code", "r");
     //fp = fopen ("Correct/8.code", "r");
     //fp = fopen ("Correct/9.code", "r");
-    //fp = fopen ("Correct/10.code", "r");
+    fp = fopen ("Correct/10.code", "r");
     //fp = fopen ("Correct/11.code", "r");
-    fp = fopen ("Correct/12.code", "r");
+    //fp = fopen ("Correct/12.code", "r");
     //fp = fopen ("Correct/13.code", "r");
     //fp = fopen ("test.code", "r");
     int s;
